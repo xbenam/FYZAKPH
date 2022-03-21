@@ -24,7 +24,7 @@
 * x(t1) = d = (2 * V0^2 * cos(alfa) * sin(alfa)) / g
 */
 FILE *fa;
-const int icaskrok = 25;
+const int icaskrok = 1000/30;
 const float Lmax = 2000.0;
 
 float x = -980.0;
@@ -39,20 +39,22 @@ float speed = 0.0;
 
 float gravity = -9.81;
 
+int delay = 0;
+
 
 void aktualizuj (const int ihod )
 {
+    if(ihod == 1)Sleep(500);
     glutPostRedisplay ();
     // printf("%f\n",y);
     if(y < -990.0) y = -990;
-    if(y >= -989.0){
-        printf("%f \n", y);
+    if(y >= -989.0 && ihod > delay){
+        printf("%f \n", x);
         x += cos(alfa * 3.14 / 180) * velocity;
-        y +=  sin(alfa * 3.14 / 180) * velocity + 0.5 * gravity * ihod;
+        y +=  sin(alfa * 3.14 / 180) * velocity + 0.5 * gravity * (ihod-delay);
     }
     if(tx >= -980)
         tx -= speed;
-    fprintf(fa,"%f %f\n", x, y);
     glutTimerFunc ( icaskrok , aktualizuj , ihod +1);
 }
 
@@ -108,7 +110,6 @@ void strela ()
     glEnd ();
 
     glutSwapBuffers ();
-
 }
 
 int main (int argc , char ** argv )
@@ -118,6 +119,17 @@ int main (int argc , char ** argv )
     alfa = atof(argv[1]);
     velocity = atof(argv[2]);
     speed = atof(argv[3]);
+
+    float x_tmp = -980.0;
+    float tx_tmp = 980.0;
+
+    while(x_tmp < tx_tmp){
+        x_tmp += cos(alfa * 3.14 / 180) * velocity;
+        tx_tmp -= speed * delay;
+        delay++;
+        printf("%f\t%f\t%f\t%f\t%d\n",(cos(alfa * 3.14 / 180) * velocity), speed, x_tmp, tx_tmp, delay);
+    }
+
     glutInit (& argc , argv );
 
     glutInitDisplayMode ( GLUT_DOUBLE );
