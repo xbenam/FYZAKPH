@@ -1,0 +1,28 @@
+Aku rychlost malo auto ked vodis po vzhliadnuti prekazky az do zastavenia presiel drahu s?
+Reakcni cas je tr a brzdil so spomalenim a.
+
+v(t) = v0 + a * t;      x(t) = x0 + v0 * t + 1/2 * a * t^2
+
+
+
+S = S1 + S2
+S1 = v0 * tr
+S2 = v0 * t2 + - 1/2 * a * (t^2 / 2)
+
+v(t) = v0 - a * t
+-----------------
+0 = V2 - a * t2 => t2 = v0 / a
+
+
+S = v0 * tr + v0 * t2 + - 1/2 * a * (t^2 / 2)
+v0 = sqrt(a^2 * t^2 + 2 * at) - a * tr
+
+   Y^
+    |                    
+    |                   
+    |                   
+    |                   
+    |                   
+    |                   
+    +------------------->
+                        X
