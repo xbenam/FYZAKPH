@@ -28,6 +28,7 @@ float Lmax = 2000.0;
 
 float x = 0.0;
 float y = 0.1;
+float z = 0.0;
 
 float tx = 0.0;
 float ty = 0.0;
@@ -54,6 +55,7 @@ void aktualizuj (const int ihod )
     if(y > -(maxY / 2) + 2.5){
         x += (cos(alfa * 3.14 / 180) * velocity);
         y += (sin(alfa * 3.14 / 180) * velocity + 0.5 * gravity * ihod);
+        z += 1;
     }
     if(tx >= -(maxX / 2))
             tx -= speed;
@@ -63,28 +65,36 @@ void aktualizuj (const int ihod )
 
 void obsluhaResize (int sirka , int vyska )
 {
+    // const float ar = (float) sirka / (float) vyska; 
+ 
+    glViewport(0, 0, sirka, vyska);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    glOrtho(-maxX*1.1/2, maxX*1.1/2, -maxY*1.1/2, maxY*1.1/2, -100.0, 100.0); 
+ 
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity() ;
+    // glViewport (0, 0, sirka , vyska );
+    // glMatrixMode ( GL_PROJECTION );
+    // //glLoadIdentity();
+    // if ( sirka == 0) sirka ++;
+    // // const float pomstr = ((float) vyska )/ sirka ;
+    // float mat [16];
 
-    glViewport (0, 0, sirka , vyska );
-    glMatrixMode ( GL_PROJECTION );
-    //glLoadIdentity();
-    if ( sirka == 0) sirka ++;
-    // const float pomstr = ((float) vyska )/ sirka ;
-    float mat [16];
-
-    // Tu je symetricka , takze aj po riadkoch by bolo OK.
-    //---------------------------------------------------------------
-    // Naplnime skalovaciu maticu hodnotami.
-    // Spravne po slovensky by sa asi mala nazyvat MERITKOVA MATICA.
-    //---------------------------------------------------------------
-    for (int ii = 0; ii < 16; ii ++) mat [ii] = 0.0;
-    mat [0] = 2.0 / (maxX*1.1) ; // skalovaci faktor pre x-ove suradnice
-    mat [5] = 2.0 / (maxY*1.1) ; // pre y-ove
-    mat [10] = 1.0; // pre z-ove
-    mat [15] = 1.0; // ta pridavna jednotka , pravy dolny prvok matice
-    //--------------------------------
-    // Posleme maticu OpenGL ,stroju '.
-    //--------------------------------
-    glLoadMatrixf ( mat );
+    // // Tu je symetricka , takze aj po riadkoch by bolo OK.
+    // //---------------------------------------------------------------
+    // // Naplnime skalovaciu maticu hodnotami.
+    // // Spravne po slovensky by sa asi mala nazyvat MERITKOVA MATICA.
+    // //---------------------------------------------------------------
+    // for (int ii = 0; ii < 16; ii ++) mat [ii] = 0.0;
+    // mat [0] = 2.0 / (maxX*1.1) ; // skalovaci faktor pre x-ove suradnice
+    // mat [5] = 2.0 / (maxY*1.1) ; // pre y-ove
+    // mat [10] = 1.0; // pre z-ove
+    // mat [15] = 1.0; // ta pridavna jednotka , pravy dolny prvok matice
+    // //--------------------------------
+    // // Posleme maticu OpenGL ,stroju '.
+    // //--------------------------------
+    // glLoadMatrixf ( mat );
 
 }
 
@@ -125,12 +135,16 @@ void strela ()
     glLoadIdentity ();
     glColor3f (0.0 , 1.0 , 0.0);
 
-    glTranslatef ( x, y, 0.0);
 
-    glBegin ( GL_POINTS );
-    glVertex2f (0.0, 0.0);
-    glEnd ();
+    glPushMatrix();
+    glTranslatef ( x, y, z);
 
+
+    // glBegin ( GL_POINTS );
+    // glVertex2f (0.0, 0.0);
+    glutWireSphere(1000,10,10);
+    // glEnd ();
+    glPopMatrix(); 
     glutSwapBuffers ();
 }
 
