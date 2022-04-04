@@ -142,7 +142,7 @@ void strela ()
 
     // glBegin ( GL_POINTS );
     // glVertex2f (0.0, 0.0);
-    glutWireSphere(1000,10,10);
+    glutWireSphere(1000,5,5);
     // glEnd ();
     glPopMatrix(); 
     glutSwapBuffers ();
@@ -210,7 +210,15 @@ int main (int argc , char ** argv )
     
     glutInitWindowPosition (50 , 50);
     glutCreateWindow (" OpenGL : CV5 ");
+    
     glutDisplayFunc ( strela );
+
+    glEnable(GL_DEPTH_TEST);
+    glDepthFunc(GL_LESS); 
+    glEnable(GL_LIGHT0);
+    glEnable(GL_NORMALIZE);
+    glEnable(GL_COLOR_MATERIAL);
+    glEnable(GL_LIGHTING);
     glClearColor (0.0 , 0.0 , 0.0 , 0.0);
     glutReshapeFunc ( obsluhaResize );
     glutTimerFunc ( icaskrok , aktualizuj , 1);
