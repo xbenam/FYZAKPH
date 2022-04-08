@@ -52,59 +52,21 @@ void aktualizuj (const int ihod )
         if (y <= 1.5) y = 1.5;
     }
     else return ;
-    // x+=0.05;
-    // y+=0.05;
-    // glMatrixMode(GL_PROJECTION);
-    // glLoadIdentity();
-    // glOrtho(-10, 10, -10.0, 10.0, -100, 100.0); 
-    // // glTranslatef(-5,-5,-10);
-    // // gluPerspective(90.0f, ar, 0.1f, 1000.0f);
-    // gluLookAt(0.0,0.0,0.0,
-    //         x,y,z,
-    //         0,1,0);
-    // glMatrixMode(GL_PROJECTION);
-    // glLoadIdentity();
-    // glOrtho(-300, 300, -300.0, 300.0, -300, 300.0); 
-    // glTranslatef(-5,-5,-10);
-    // gluPerspective(90.0f, 1.0f, 0.1f, 1000.0f);
-    // gluLookAt(100.0, 10.0, 250.0,
-    //         0.0, 0.0, 0.0,
-    //         0.0, 1.0, 0.0);
-    // glOrtho(-135, 135, -100.0, 100.0, -300, 1000.0); 
-    // gluPerspective(90.0f, 1, 0.1f, 1000.0f);
-    // gluLookAt(150, 150, 150,
-    //         0.0, 0.0, 0.0,
-    //         0.0,1.0,0.0);
-    // glMatrixMode(GL_PROJECTION);
-    // glLoadIdentity();
-    // gluPerspective(90.0f, 1, 0.1f, 1000000.0f);   
-    // gluLookAt( sqrt(pow(maxZ, 2) + pow(maxX, 2)), (maxY)*1.1, sqrt(pow(maxZ, 2) + pow(maxX, 2)),
-    //         x, y, z,
-    //         0.0,1.0,0.0);
-    
+
     glutPostRedisplay ();
     glutTimerFunc ( icaskrok , aktualizuj , ihod +1);
 }
 
 void obsluhaResize (int sirka , int vyska )
 {
-    // const float ar = (float) sirka / (float) vyska; 
-    // float ar = (float) 
+
     glViewport(0, 0, sirka, vyska);
-    // glMatrixMode(GL_PROJECTION);
-    // glLoadIdentity();
-    // gluLookAt(
-    // 0, 0, 2,
-    // 0, 0, 0,
-    // 0, -1, 0);
-    // glOrtho(-10, 10, -10.0, 10.0, 1.0, 10.0); 
+
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     float ano = sqrt( pow(maxY, 2)+ (pow(maxZ, 2) + pow(maxX, 2)));
     glOrtho(-ano * sin(55 * 3.14 / 180) * 1.2, ano * sin(55 * 3.14 / 180) * 1.2, -ano * sin(45 * 3.14 / 180) * 1.2, ano * sin(45 * 3.14 / 180) * 1.2, -300, ano * 2); 
-    // glTranslatef(0,-100,0);
-    // glRotatef(1, 0, 1, 0);
-    // gluPerspective(90.0f, 1, 0.1f, 1000000.0f);    
+
     gluLookAt((ano * sin(35 * 3.14 / 180)) * sin(45 * 3.14 / 180), ano * sin(45 * 3.14 / 180), (ano * sin(55 * 3.14 / 180)) * sin(45 * 3.14 / 180),
             0.0, 0.0, 0.0,
             0.0, 1.0, 0.0);
@@ -210,20 +172,17 @@ int main (int argc , char ** argv )
         maxZ = max(abs(z), maxZ);
         time++;
     }
+    printf("x: %f\ty: %f\tz: %f\n", x, maxY , z);
     x = 0.0;
     y = 0.0 + platform;
     z = 0.0;
-    printf("x: %f\ty: %f\tz: %f\n", maxX, maxY , maxZ * 2);
+    // printf("x: %f\ty: %f\tz: %f\n", maxX, maxY , maxZ);
 
     glutInit (& argc , argv );
     glutInitDisplayMode ( GLUT_DOUBLE );
-    glutInitWindowSize (860 , 860);
-    // if (ano >= maxY)
-    //     glutInitWindowSize (860 , 860*(maxY/ano));
-    // else
-    //     glutInitWindowSize (640 * (ano/maxY) , 640);
+    glutInitWindowSize (640 , 640);
     
-    glutInitWindowPosition (50 , 50);
+    glutInitWindowPosition (50 , 0);
     glutCreateWindow (" OpenGL : CV6 ");
     
     glutDisplayFunc ( strela );
