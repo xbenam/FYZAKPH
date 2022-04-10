@@ -68,22 +68,22 @@ void obsluhaResize (int sirka , int vyska )
     //glLoadIdentity();
     if ( sirka == 0) sirka ++;
     // const float pomstr = ((float) vyska )/ sirka ;
-    float mat [16];
-
-    // Tu je symetricka , takze aj po riadkoch by bolo OK.
-    //---------------------------------------------------------------
-    // Naplnime skalovaciu maticu hodnotami.
-    // Spravne po slovensky by sa asi mala nazyvat MERITKOVA MATICA.
-    //---------------------------------------------------------------
-    for (int ii = 0; ii < 16; ii ++) mat [ii] = 0.0;
-    mat [0] = 2.0 / (maxX*1.1) ; // skalovaci faktor pre x-ove suradnice
-    mat [5] = 2.0 / (maxY*1.1) ; // pre y-ove
-    mat [10] = 1.0; // pre z-ove
-    mat [15] = 1.0; // ta pridavna jednotka , pravy dolny prvok matice
-    //--------------------------------
-    // Posleme maticu OpenGL ,stroju '.
-    //--------------------------------
-    glLoadMatrixf ( mat );
+    // float mat [16];
+    gluOrtho2D(-0.5*maxX, 5*maxX, -0.5*maxY, 0.5*maxY);
+    // // Tu je symetricka , takze aj po riadkoch by bolo OK.
+    // //---------------------------------------------------------------
+    // // Naplnime skalovaciu maticu hodnotami.
+    // // Spravne po slovensky by sa asi mala nazyvat MERITKOVA MATICA.
+    // //---------------------------------------------------------------
+    // for (int ii = 0; ii < 16; ii ++) mat [ii] = 0.0;
+    // mat [0] = 2.0 / (maxX*1.1) ; // skalovaci faktor pre x-ove suradnice
+    // mat [5] = 2.0 / (maxY*1.1) ; // pre y-ove
+    // mat [10] = 1.0; // pre z-ove
+    // mat [15] = 1.0; // ta pridavna jednotka , pravy dolny prvok matice
+    // //--------------------------------
+    // // Posleme maticu OpenGL ,stroju '.
+    // //--------------------------------
+    // glLoadMatrixf ( mat );
 
 }
 
@@ -163,10 +163,11 @@ int main (int argc , char ** argv )
 
     glutInit (& argc , argv );
     glutInitDisplayMode ( GLUT_DOUBLE );
-    if (maxX >= maxY)
-        glutInitWindowSize (860 , 860*(maxY/maxX));
-    else
-        glutInitWindowSize (640 * (maxX/maxY) , 640);
+    glutInitWindowSize(640,640);
+    // if (maxX >= maxY)
+    //     glutInitWindowSize (860 , 860*(maxY/maxX));
+    // else
+    //     glutInitWindowSize (640 * (maxX/maxY) , 640);
     
     glutInitWindowPosition (50 , 50);
     glutCreateWindow (" OpenGL : CV4 ");
