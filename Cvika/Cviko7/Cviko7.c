@@ -180,7 +180,7 @@ int main (int argc , char ** argv )
 
     glutInit (& argc , argv );
     glutInitDisplayMode ( GLUT_DOUBLE );
-    glutInitWindowSize (1290 , 860);
+    glutInitWindowSize (860 , 630);
     
     glutInitWindowPosition (50 , 50);
     glutCreateWindow (" OpenGL : CV7 ");

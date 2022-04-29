@@ -79,14 +79,14 @@ void aktualizuj (const int ihod )
     }
 
     if ((ihod / 250) % 4 == 2){
-        xAcceleration = (-(force - resistance * xSpeed)) / mass;
+        xAcceleration = (((-force) - resistance * xSpeed)) / mass;
         zAcceleration = 0;
         zRotation = 1;
         rotate -= (xSpeed+zSpeed) / M_PI;
     }        
 
     if ((ihod / 250) % 4 == 3){
-        zAcceleration = (-(force - resistance * zSpeed)) / mass;
+        zAcceleration = (((-force) - resistance * zSpeed)) / mass;
         xAcceleration = 0;
         xRotation = 1;
         rotate -= (xSpeed+zSpeed) / M_PI;
@@ -105,7 +105,7 @@ void aktualizuj (const int ihod )
 
     x = x + xSpeed * (icaskrok / 1000.0) + 0.5 * xAcceleration * pow((icaskrok / 1000.0), 2);
     z = z + zSpeed * (icaskrok / 1000.0) + 0.5 * zAcceleration * pow((icaskrok / 1000.0), 2);
-    printf("%d\t %f\t%f\t%f\t%f\n",ihod, x, z, xAcceleration, zAcceleration);
+    // printf("%d\t %f\t%f\t%f\t%f\n",ihod, x, z, xAcceleration, zAcceleration);
     xSpeed = xSpeed + xAcceleration * (icaskrok / 1000.0);
     zSpeed = zSpeed + zAcceleration * (icaskrok / 1000.0);
     glutTimerFunc ( icaskrok , aktualizuj , ihod +1);
@@ -220,10 +220,10 @@ int main (int argc , char ** argv )
 
     glutInit (& argc , argv );
     glutInitDisplayMode ( GLUT_DOUBLE );
-    glutInitWindowSize (1290 , 860);
+    glutInitWindowSize (860 , 630);
     
     glutInitWindowPosition (50 , 50);
-    glutCreateWindow (" OpenGL : CV7 ");
+    glutCreateWindow (" OpenGL : CV8 ");
 
     glutDisplayFunc ( strela );
     glEnable(GL_CULL_FACE);
