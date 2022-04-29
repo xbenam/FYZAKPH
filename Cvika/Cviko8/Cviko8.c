@@ -5,21 +5,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-/*
-* sikmy vrh
-* v(r) = r (x(t), y(t))
-* x(t) = V0x * t                    Vx(t) = V0x
-* y(t) = V0y * t - 1/2 * g * t^2    Vy(t) = V0y - g * t
-* 
-* V0x = V0 * cos(alfa)
-* V0y = V0 * sin(alfa)
-* 
-* y(t1) = 0 t1(V01 - 1/2 g * t1) = 0 
-*                     ||
-*                      V
-*                      x => t1 = (2 * V0 * sin(alfa)) / g
-* x(t1) = d = (2 * V0^2 * cos(alfa) * sin(alfa)) / g
-*/
 const int icaskrok = 1000/50;
 
 float x = 0.0;
@@ -91,21 +76,9 @@ void aktualizuj (const int ihod )
         xRotation = 1;
         rotate -= (xSpeed+zSpeed) / M_PI;
     }
-        
-    // glMatrixMode(GL_PROJECTION);
-    // glLoadIdentity();
-    // // glOrtho(-50, 150, -50, 50, -300, 300); 
-    // gluPerspective(90.0f, 1, 0.1f, 1000.0f);
-    // gluLookAt(  
-    //         abs(maxX)*0.5, 25.0, 25.0,
-    //         x, y, z,
-    //         0.0, 1.0, 0.0
-    //         );
-    // glMatrixMode(GL_MODELVIEW);
 
     x = x + xSpeed * (icaskrok / 1000.0) + 0.5 * xAcceleration * pow((icaskrok / 1000.0), 2);
     z = z + zSpeed * (icaskrok / 1000.0) + 0.5 * zAcceleration * pow((icaskrok / 1000.0), 2);
-    // printf("%d\t %f\t%f\t%f\t%f\n",ihod, x, z, xAcceleration, zAcceleration);
     xSpeed = xSpeed + xAcceleration * (icaskrok / 1000.0);
     zSpeed = zSpeed + zAcceleration * (icaskrok / 1000.0);
     glutTimerFunc ( icaskrok , aktualizuj , ihod +1);
@@ -212,7 +185,6 @@ int main (int argc , char ** argv )
         zSpeed = zSpeed + zAcceleration * (icaskrok / 1000.0);
         time++;
     }
-    // printf("%f",maxX);
     xSpeed = 0.0;
     zSpeed = 0.0;
     xAcceleration = 0.0;
@@ -221,9 +193,9 @@ int main (int argc , char ** argv )
     glutInit (& argc , argv );
     glutInitDisplayMode ( GLUT_DOUBLE );
     glutInitWindowSize (860 , 630);
-    
+
     glutInitWindowPosition (50 , 50);
-    glutCreateWindow (" OpenGL : CV8 ");
+    glutCreateWindow (" OpenGL : CV9 ");
 
     glutDisplayFunc ( strela );
     glEnable(GL_CULL_FACE);
@@ -246,7 +218,7 @@ int main (int argc , char ** argv )
     glMaterialfv(GL_FRONT, GL_DIFFUSE,   mat_diffuse);
     glMaterialfv(GL_FRONT, GL_SPECULAR,  mat_specular);
     glMaterialfv(GL_FRONT, GL_SHININESS, high_shininess); 
-    glClearColor (0.0 , 0.0 , 0.0 , 0.0);
+    glClearColor (0.0, 0.0, 0.0, 0.0);
     glutReshapeFunc ( obsluhaResize );
     Sleep(1000);
     glutTimerFunc ( icaskrok , aktualizuj , 1);
