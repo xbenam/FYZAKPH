@@ -74,27 +74,7 @@ void obsluhaResize (int sirka , int vyska )
  
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity() ;
-    // glViewport (0, 0, sirka , vyska );
-    // glMatrixMode ( GL_PROJECTION );
-    // //glLoadIdentity();
-    // if ( sirka == 0) sirka ++;
-    // // const float pomstr = ((float) vyska )/ sirka ;
-    // float mat [16];
-
-    // // Tu je symetricka , takze aj po riadkoch by bolo OK.
-    // //---------------------------------------------------------------
-    // // Naplnime skalovaciu maticu hodnotami.
-    // // Spravne po slovensky by sa asi mala nazyvat MERITKOVA MATICA.
-    // //---------------------------------------------------------------
-    // for (int ii = 0; ii < 16; ii ++) mat [ii] = 0.0;
-    // mat [0] = 2.0 / (maxX*1.1) ; // skalovaci faktor pre x-ove suradnice
-    // mat [5] = 2.0 / (maxY*1.1) ; // pre y-ove
-    // mat [10] = 1.0; // pre z-ove
-    // mat [15] = 1.0; // ta pridavna jednotka , pravy dolny prvok matice
-    // //--------------------------------
-    // // Posleme maticu OpenGL ,stroju '.
-    // //--------------------------------
-    // glLoadMatrixf ( mat );
+    
 
 }
 
