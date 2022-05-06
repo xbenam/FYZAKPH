@@ -30,6 +30,7 @@ int main (int argc , char ** argv )
     
     int time = 1;
     while (height >= 0) {
+        printf("%f\n", k0);
         fprintf(fa,"%d %f\n",time, height);
         height = height + h * fFunction(time);
         time ++;
