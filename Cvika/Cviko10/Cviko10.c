@@ -58,7 +58,7 @@ void obsluhaResize (int sirka , int vyska )
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     
-    glOrtho(-0.51 * Lx, 0.51 * Lx, -0.51 * Ly, 0.51 * Ly, -300, 300); 
+    glOrtho(-0.55 * Lx, 0.55 * Lx, -0.55 * Ly, 0.55 * Ly, -300, 300); 
     // gluPerspective(90.0f, 1, 0.1f, 1000.0f);
     gluLookAt(  
             0.0, 50.0, 0.1,
@@ -75,13 +75,13 @@ void strela ()
 
     glMatrixMode ( GL_MODELVIEW );
 
-    //X-axis
-    glLoadIdentity ();
-    glColor3f (1.0 , 0.0 , 0.0);
-    glBegin ( GL_LINES );
-    glVertex3f (-10000, 0,0);
-    glVertex3f (10000, 0,0);
-    glEnd ();
+    // //X-axis
+    // glLoadIdentity ();
+    // glColor3f (1.0 , 0.0 , 0.0);
+    // glBegin ( GL_LINES );
+    // glVertex3f (-10000, 0,0);
+    // glVertex3f (10000, 0,0);
+    // glEnd ();
 
     // //Y-axis
     // glLoadIdentity ();
@@ -91,27 +91,27 @@ void strela ()
     // glVertex3f (0, 10000, 0);
     // glEnd ();
 
-    //Z-axis
-    glLoadIdentity ();
-    glColor3f (0.0 , 0.0 , 1.0);
-    glBegin ( GL_LINES );
-    glVertex3f (0, 0, -10000);
-    glVertex3f (0, 0, 10000);
-    glEnd ();
+    // //Z-axis
+    // glLoadIdentity ();
+    // glColor3f (0.0 , 0.0 , 1.0);
+    // glBegin ( GL_LINES );
+    // glVertex3f (-Lx*0.5, 0, -10000);
+    // glVertex3f (0, 0, 10000);
+    // glEnd ();
 
     //plane
     glLoadIdentity ();
-    glColor3f (0.3 , 0.3 , 0.3);
+    glColor3f (0.0 , 0.6 , 0.0);
     glBegin ( GL_QUADS );
-    glVertex3f (5000, -0.5, -5000);
-    glVertex3f (-5000, -0.5, -5000);
-    glVertex3f (-5000, -0.5, 5000);
-    glVertex3f (5000, -0.5, 5000);
+    glVertex3f (Lx*0.5 + 1.5, -0.5, -Ly*0.5 - 1.5);
+    glVertex3f (-Lx*0.5 - 1.5, -0.5, -Ly*0.5 - 1.5);
+    glVertex3f (-Lx*0.5 - 1.5, -0.5, Ly*0.5 + 1.5);
+    glVertex3f (Lx*0.5 + 1.5, -0.5, Ly*0.5 + 1.5);
     glEnd ();
 
     //ball
     glLoadIdentity ();
-    glColor3f (0.0 , 1.0 , 0.0);
+    glColor3f (0.8 , 0.0 , 0.8);
     glPushMatrix();
     glTranslatef ( x, y, z);
     glRotatef(rotate, xRotation, yRotation, zRotation);
@@ -134,13 +134,13 @@ const GLfloat high_shininess[] = { 100.0f };
 int main (int argc , char ** argv )
 {
 
-    speed = atof(argv[1]);
+    speed = 14;
     glutInit (& argc , argv );
 
     speedX = speed * cos(0.6);
     speedY = speed * sin(0.6);
     glutInitDisplayMode ( GLUT_DOUBLE );
-    glutInitWindowSize (860 , 640);
+    glutInitWindowSize (860 , 504);
     
     glutInitWindowPosition (50 , 50);
     glutCreateWindow (" OpenGL : CV10 ");

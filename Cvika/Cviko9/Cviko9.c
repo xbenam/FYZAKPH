@@ -25,9 +25,7 @@ int main (int argc , char ** argv )
 {
     k0 = 0.5 * ((C * S * ro) / mass);
     fa = fopen("data.dat", "w");
-    
-
-    
+        
     int time = 1;
     while (height >= 0) {
         printf("%f\n", k0);
