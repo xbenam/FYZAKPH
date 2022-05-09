@@ -5,21 +5,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-/*
-* sikmy vrh
-* v(r) = r (x(t), y(t))
-* x(t) = V0x * t                    Vx(t) = V0x
-* y(t) = V0y * t - 1/2 * g * t^2    Vy(t) = V0y - g * t
-* 
-* V0x = V0 * cos(alfa)
-* V0y = V0 * sin(alfa)
-* 
-* y(t1) = 0 t1(V01 - 1/2 g * t1) = 0 
-*                     ||
-*                      V
-*                      x => t1 = (2 * V0 * sin(alfa)) / g
-* x(t1) = d = (2 * V0^2 * cos(alfa) * sin(alfa)) / g
-*/
 const int icaskrok = 1000/50;
 
 float x = 0.0;
@@ -37,11 +22,21 @@ float xRotation = 0.0;
 float yRotation = 0.0;
 float zRotation = 0.0;
 
+float speedX = 0.0;
+float speedY = 0.0;
 
 void aktualizuj (const int ihod )
 {
     glutPostRedisplay ();
-    
+    if (x + 1.5 >= 0.5 * Lx || x - 1.5 <= -0.5 * Lx) {
+        speedX *= -1; 
+    }
+    if (z + 1.5 >= 0.5 * Ly || z - 1.5 <= -0.5 * Ly) {
+        speedY *= -1; 
+    }
+    x = x + speedX * (1.0/icaskrok);
+    z = z + speedY * (1.0/icaskrok);
+    // printf("%f\t%f\n", x,z);
     glMatrixMode(GL_PROJECTION);
     // glLoadIdentity();
     // // glOrtho(-50, 150, -50, 50, -300, 300); 
@@ -63,10 +58,10 @@ void obsluhaResize (int sirka , int vyska )
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     
-    // glOrtho(-0.6 * Lx, 0.6 * Lx, -0.6 * Ly, 0.6 * Ly, -300, 300); 
-    gluPerspective(90.0f, 1, 0.1f, 1000.0f);
+    glOrtho(-0.51 * Lx, 0.51 * Lx, -0.51 * Ly, 0.51 * Ly, -300, 300); 
+    // gluPerspective(90.0f, 1, 0.1f, 1000.0f);
     gluLookAt(  
-            0.0, 100.0, 0.1,
+            0.0, 50.0, 0.1,
             0, 0, 0,
             0.0, 1.0, 0.0
             );
@@ -88,13 +83,13 @@ void strela ()
     glVertex3f (10000, 0,0);
     glEnd ();
 
-    //Y-axis
-    glLoadIdentity ();
-    glColor3f (0.0 , 1.0 , 0.0);
-    glBegin ( GL_LINES );
-    glVertex3f (0, -10000, 0);
-    glVertex3f (0, 10000, 0);
-    glEnd ();
+    // //Y-axis
+    // glLoadIdentity ();
+    // glColor3f (0.0 , 1.0 , 0.0);
+    // glBegin ( GL_LINES );
+    // glVertex3f (0, -10000, 0);
+    // glVertex3f (0, 10000, 0);
+    // glEnd ();
 
     //Z-axis
     glLoadIdentity ();
@@ -120,7 +115,7 @@ void strela ()
     glPushMatrix();
     glTranslatef ( x, y, z);
     glRotatef(rotate, xRotation, yRotation, zRotation);
-    glutWireSphere(3.75, 12, 12);
+    glutSolidSphere(3, 12, 12);
 
     glPopMatrix(); 
     glutSwapBuffers ();
@@ -138,12 +133,14 @@ const GLfloat high_shininess[] = { 100.0f };
 
 int main (int argc , char ** argv )
 {
-    
 
-
+    speed = atof(argv[1]);
     glutInit (& argc , argv );
+
+    speedX = speed * cos(0.6);
+    speedY = speed * sin(0.6);
     glutInitDisplayMode ( GLUT_DOUBLE );
-    glutInitWindowSize (860 , 516);
+    glutInitWindowSize (860 , 640);
     
     glutInitWindowPosition (50 , 50);
     glutCreateWindow (" OpenGL : CV10 ");
