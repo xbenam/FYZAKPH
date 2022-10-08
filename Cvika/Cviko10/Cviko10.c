@@ -47,6 +47,18 @@ void aktualizuj (const int ihod )
     //         0.0, 1.0, 0.0
     //         );
     // glMatrixMode(GL_MODELVIEW);
+    //  glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    
+    // glOrtho(-0.55 * Lx, 0.55 * Lx, -0.55 * Ly, 0.55 * Ly, -300, 300); 
+    gluPerspective(90.0f, 1, 0.1f, 1000.0f);
+    gluLookAt(  
+            0.0, 100.0, 0.1,
+            x, y, z,
+            0.0, 1.0, 0.0
+            );
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity() ;
     glutTimerFunc ( icaskrok , aktualizuj , ihod +1);
 }
 
@@ -58,11 +70,11 @@ void obsluhaResize (int sirka , int vyska )
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     
-    glOrtho(-0.55 * Lx, 0.55 * Lx, -0.55 * Ly, 0.55 * Ly, -300, 300); 
-    // gluPerspective(90.0f, 1, 0.1f, 1000.0f);
+    // glOrtho(-0.55 * Lx, 0.55 * Lx, -0.55 * Ly, 0.55 * Ly, -300, 300); 
+    gluPerspective(90.0f, 1, 0.1f, 1000.0f);
     gluLookAt(  
-            0.0, 50.0, 0.1,
-            0, 0, 0,
+            0.0, 100.0, 0.1,
+            x, y, z,
             0.0, 1.0, 0.0
             );
     glMatrixMode(GL_MODELVIEW);
@@ -116,6 +128,35 @@ void strela ()
     glTranslatef ( x, y, z);
     glRotatef(rotate, xRotation, yRotation, zRotation);
     glutSolidSphere(3, 12, 12);
+    
+    //Walls
+    glLoadIdentity ();
+    glColor3f (0.3961 , 0.2627 , 0.1294);
+    glPushMatrix();
+    glTranslatef ( -0.525*Lx, 0, 0);
+    glScalef(5,10, 1.02*Ly);
+    glutSolidCube(1);
+
+    glLoadIdentity ();
+    glColor3f (0.3961 , 0.2627 , 0.1294);
+    glPushMatrix();
+    glTranslatef ( 0.525*Lx, 0, 0);
+    glScalef(5,10, 1.02*Ly);
+    glutSolidCube(1);
+
+    glLoadIdentity ();
+    glColor3f (0.3961 , 0.2627 , 0.1294);
+    glPushMatrix();
+    glTranslatef ( 0, 0, 0.525*Ly);
+    glScalef(Lx*1.1, 10, 5);
+    glutSolidCube(1);
+
+    glLoadIdentity ();
+    glColor3f (0.3961 , 0.2627 , 0.1294);
+    glPushMatrix();
+    glTranslatef ( 0, 0, -0.55*Ly);
+    glScalef(Lx*1.1, 10, 5);
+    glutSolidCube(1);
 
     glPopMatrix(); 
     glutSwapBuffers ();
